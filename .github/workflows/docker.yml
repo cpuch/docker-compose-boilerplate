@@ -7,16 +7,29 @@ on:
   pull_request:
   schedule:
     - cron: '0 0 * * 1'
-
+          
 jobs:
-  bake:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+      
       - name: Set up Docker Buildx
+        id: setup
         uses: docker/setup-buildx-action@v3
+
+      - name: Generate Docker metadata
+        id: metadata
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            cpuchalver/alpine
+            cpuchalver/debian
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -24,16 +37,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      # - name: Build and export to Docker
-      #   uses: docker/bake-action@v4
-      #   with:
-      #     load: true
-
-      - name: Test
-        run: |
-          docker run --rm ${{ steps.meta.outputs.tags }}
-
-      - name: Build and push
+      - name: Build and push Docker images
         uses: docker/bake-action@v4
         with:
-          push: true
+          files: docker-compose.yml
+          push: false
+          tags: ${{ steps.metadata.outputs.tags }}
