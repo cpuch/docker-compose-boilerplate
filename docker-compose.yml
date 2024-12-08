@@ -1,8 +1,10 @@
 services:
   alpine:
-    container_name: alpine-boilerplate
+    container_name: boilerplate-alpine
     build:
       context: alpine
+      tags:
+        - cpuchalver/boilerplate:alpine
       args:
         UID: ${DOCKER_UID:-1000}
         GID: ${DOCKER_GID:-1000}
@@ -10,9 +12,11 @@ services:
       - ./app:/app
 
   debian:
-    container_name: debian-boilerplate
+    container_name: boilerplate-debian
     build:
       context: debian
+      tags:
+        - cpuchalver/boilerplate:debian
       args:
         UID: ${DOCKER_UID:-1000}
         GID: ${DOCKER_GID:-1000}
