@@ -11,7 +11,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
     apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
-    apt-get install -y sudo bash-completion wget curl nano && \
+    apt-get install -y bash-completion wget curl nano && \
     apt-get clean
 
 # Use UID and GID arguments from docker-compose.yml
@@ -23,7 +23,6 @@ RUN groupadd user -g $GID
 
 # Create user
 RUN useradd user -u $UID -g $GID -m -s /bin/bash
-#     echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Create the working directory
 RUN mkdir /app && \
