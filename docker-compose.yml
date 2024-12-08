@@ -1,4 +1,14 @@
 services:
+  alpine:
+    container_name: alpine-boilerplate
+    build:
+      context: alpine
+      args:
+        UID: ${DOCKER_UID:-1000}
+        GID: ${DOCKER_GID:-1000}
+    volumes:
+      - ./app:/app
+
   debian:
     container_name: debian-boilerplate
     build:
