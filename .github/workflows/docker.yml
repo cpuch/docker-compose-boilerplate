@@ -31,7 +31,7 @@ jobs:
 
       - name: Test
         run: |
-          docker compose up --build
+          docker compose up --build --detach
 
       - name: Build and push
         uses: docker/bake-action@v4
