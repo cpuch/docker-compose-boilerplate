@@ -1,7 +1,6 @@
 name: ci
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - 'main'
@@ -25,12 +24,12 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            cpuchalver/alpine
-            cpuchalver/debian
+            cpuchalver/${{ matrix.target }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
             type=sha
+          bake-target: ${{ matrix.target }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -41,7 +40,9 @@ jobs:
       - name: Build and push Docker images
         uses: docker/bake-action@v4
         with:
-          files: docker-compose.yml
+          targets: ${{ matrix.target }}
+          files: |
+            docker-compose.yml
           push: false
-          set: |
-            *.target.tags=${{ steps.metadata.outputs.tags }}
+          # set: |
+          #   target.tags=${{ steps.metadata.outputs.tags }}
