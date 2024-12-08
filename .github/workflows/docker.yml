@@ -29,12 +29,16 @@ jobs:
       #   with:
       #     load: true
 
-      - name: Test
-        run: |
-          docker compose up --build --rm
+      # - name: Test
+      #   run: |
+      #     docker compose up --build --rm
 
-      - name: Build and push
+      - name: Build
         uses: docker/bake-action@v4
         with:
           load: true
+
+      - name: Push
+        uses: docker/bake-action@v4
+        with:
           push: true
