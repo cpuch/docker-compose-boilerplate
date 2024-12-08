@@ -46,7 +46,6 @@ jobs:
           targets: ${{ matrix.target }}
           files: |
             ${{ steps.meta.outputs.bake-file-tags }}
-            docker-compose.yml
           load: true
           # set: |
           #   target.tags=${{ steps.metadata.outputs.tags }}
