@@ -24,17 +24,17 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build and export to Docker
-        uses: docker/bake-action@v4
-        with:
-          load: true
+      # - name: Build and export to Docker
+      #   uses: docker/bake-action@v4
+      #   with:
+      #     load: true
 
       - name: Test
         run: |
-          docker compose --build --rm
+          docker compose up --build --rm
 
       - name: Build and push
         uses: docker/bake-action@v4
         with:
+          load: true
           push: true
-          no-cache: true
