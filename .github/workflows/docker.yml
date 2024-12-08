@@ -20,7 +20,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Generate Docker metadata
-        id: metadata
+        id: meta
         uses: docker/metadata-action@v5.4.0
         with:
           images: |
@@ -45,6 +45,7 @@ jobs:
         with:
           targets: ${{ matrix.target }}
           files: |
+            ${{ steps.meta.outputs.bake-file }}
             docker-compose.yml
           push: false
           # set: |
