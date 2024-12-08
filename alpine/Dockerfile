@@ -13,20 +13,20 @@ ARG UID
 ARG GID
 
 # Create user group
-RUN addgroup "user" -g $GID
+RUN addgroup user -g ${GID}
 
 # Create user
-RUN adduser "user" -D -u $UID -G $(getent group $GID | cut -d: -f1) -s /bin/bash
+RUN adduser user -D -u ${UID} -G $(getent group ${GID} | cut -d: -f1) -s /bin/bash
 
 # Create the working directory
 RUN mkdir -p /app && \
-    chown $UID:$GID /app
+    chown ${UID}:${GID} /app
 
 # Specify the working directory
 WORKDIR /app
 
 # Switch to the newly created user
-USER $UID
+USER ${UID}
 
 # Set the default command to keep container running
 CMD ["/bin/bash", "-c", "echo 'Container is ready.' ; trap exit TERM ; while sleep 1; do :; done"]
