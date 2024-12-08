@@ -23,7 +23,9 @@ jobs:
         id: metadata
         uses: docker/metadata-action@v5.4.0
         with:
-          images: cpuchalver/${{ matrix.target }}
+          images: |
+            cpuchalver/debian
+            cpuchalver/alpine
           tags: |
             type=schedule
             type=ref,event=branch
