@@ -25,11 +25,14 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build and export to Docker
-        id: export
         uses: docker/bake-action@v4
         with:
           load: true
-          
+
+      - name: Test
+        run: |
+          docker compose --build --rm
+
       - name: Build and push
         uses: docker/bake-action@v4
         with:
