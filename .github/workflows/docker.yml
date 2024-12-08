@@ -37,9 +37,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build and push Docker images
-        uses: docker/bake-action@v4
-        with:
-          files: docker-compose.yml
-          push: false
-          tags: ${{ steps.metadata.outputs.tags }}
+      - name: Test
+        run: |
+          echo ${{ steps.metadata.outputs.tags }}
