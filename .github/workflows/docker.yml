@@ -40,13 +40,13 @@ jobs:
       #     username: ${{ secrets.DOCKER_USERNAME }}
       #     password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build and push Docker images
+      - name: Build
         uses: docker/bake-action@v4
         with:
           targets: ${{ matrix.target }}
           files: |
             ${{ steps.meta.outputs.bake-file }}
             docker-compose.yml
-          push: false
+          load: true
           # set: |
           #   target.tags=${{ steps.metadata.outputs.tags }}
