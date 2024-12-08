@@ -44,4 +44,4 @@ jobs:
           files: docker-compose.yml
           push: false
           set: |
-            *.tags=${{ steps.metadata.outputs.tags }}
+            *.target.tags=${{ steps.metadata.outputs.tags }}
