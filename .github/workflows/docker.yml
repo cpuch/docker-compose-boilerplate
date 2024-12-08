@@ -21,21 +21,23 @@ jobs:
 
       - name: Generate Docker metadata
         id: metadata
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v5.5.0
         with:
-          images: |
-            cpuchalver/${{ matrix.target }}
+          images: cpuchalver/boilerplate:${{ matrix.target }}
           tags: |
+            type=schedule
             type=ref,event=branch
+            type=ref,event=tag
             type=ref,event=pr
+            type=raw,value=latest,enable={{is_default_branch}}
             type=sha
           bake-target: ${{ matrix.target }}
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+      # - name: Login to DockerHub
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build and push Docker images
         uses: docker/bake-action@v4
