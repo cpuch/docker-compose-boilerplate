@@ -29,12 +29,6 @@ jobs:
         uses: docker/bake-action@v4
         with:
           load: true
-          set: |
-            tags=${{ steps.export.output.tags }}
-
-      - name: Test
-        run: |
-          docker run --rm
           
       - name: Build and push
         uses: docker/bake-action@v4
