@@ -25,9 +25,12 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build and export to Docker
+        id: export
         uses: docker/bake-action@v4
         with:
           load: true
+          set: |
+            tags=${{ steps.export.output.tags }}
 
       - name: Test
         run: |
