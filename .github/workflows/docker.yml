@@ -21,7 +21,7 @@ jobs:
 
       - name: Generate Docker metadata
         id: metadata
-        uses: docker/metadata-action@v5.4
+        uses: docker/metadata-action@v5.4.0
         with:
           images: cpuchalver/${{ matrix.target }}
           tags: |
