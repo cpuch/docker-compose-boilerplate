@@ -1,0 +1,14 @@
+services:
+  debian:
+    container_name: debian-boilerplate
+    build:
+      context: debian
+      args:
+        UID: ${DOCKER_UID:-1000}
+        GID: ${DOCKER_GID:-1000}
+    volumes:
+      - ./app:/app
+
+networks:
+  boilerplate:
+    name: boilerplate
